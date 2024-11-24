@@ -34,6 +34,26 @@ public class Plant {
 	}
 
 	//TODO: Step 1 = CSV string constructor
+	public Plant(String csvLine) throws IllegalArgumentException {
+    if (csvLine == null || csvLine.isEmpty()) {
+        throw new IllegalArgumentException("Invalid CSV input: " + csvLine);
+    }
+    String[] parts = csvLine.split(",");
+    if (parts.length != 3) {
+        throw new IllegalArgumentException("CSV line does not contain exactly 3 parts: " + csvLine);
+    }
+
+    String name = parts[0].trim();
+    double temp;
+    try {
+        temp = Double.parseDouble(parts[1].trim());
+    } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Temperature value is not valid: " + parts[1]);
+    }
+    String uses = parts[2].trim();
+
+    this.setAll(name, temp, uses);
+}
 
 
 
